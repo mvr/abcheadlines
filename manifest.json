@@ -1,0 +1,15 @@
+{
+    "name": "ABC Bait Switch",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "Restore a crumb of dignity to our national broadcaster.",
+    "content_scripts": [
+        {
+            "matches": ["https://www.abc.net.au/news",
+                        "https://www.abc.net.au/news/*"],
+            "js": ["script.js"]
+        }
+    ],
+    "permissions": ["scripting", "storage"],
+    "action": {}
+}
