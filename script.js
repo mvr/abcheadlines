@@ -26,7 +26,8 @@ setTimeout(() => {
 var cards = document.querySelectorAll(
     "div[data-component=VolumeCard], " +
     "div[data-component=GenericCard], " +
-    "div[data-component=ListCard]"
+    "div[data-component=ListCard], " +
+    "li[data-component=TopStoriesCard]"
     );
 
 cards.forEach(async (card) => {
