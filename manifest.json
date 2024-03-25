@@ -10,6 +10,6 @@
             "js": ["script.js"]
         }
     ],
-    "permissions": ["scripting", "storage"],
+    "permissions": ["storage"],
     "action": {}
 }
