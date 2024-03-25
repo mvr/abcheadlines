@@ -6,10 +6,8 @@ function dataURIToId(dataUri) {
 async function lookupTitle(id) {
     var cached = await chrome.storage.local.get(id);
     if(id in cached) {
-        console.log("seen")
         return cached[id];
     } else {
-        console.log("new")
         var endpoint = 'https://api.abc.net.au/terminus/api/v2/teasablecontent/coremedia/article/' + id + '?apikey=725c0f7ab3f54197bede3138afe583e9'
 
         var response = await fetch(endpoint);
