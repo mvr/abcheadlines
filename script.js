@@ -3,15 +3,22 @@ function dataURIToId(dataUri) {
     return matches ? matches[1] || false : false;
 }
 
+function endpointFor(id) {
+    return 'https://api.abc.net.au/terminus/api/v2/teasablecontent/coremedia/article/' + id + '?apikey=725c0f7ab3f54197bede3138afe583e9'
+}
+
 async function lookupTitle(id) {
     var cached = await chrome.storage.local.get(id);
     if(id in cached) {
         return cached[id];
     } else {
-        var endpoint = 'https://api.abc.net.au/terminus/api/v2/teasablecontent/coremedia/article/' + id + '?apikey=725c0f7ab3f54197bede3138afe583e9'
+        var json = await fetch(endpointFor(id)).then((response) => response.json());
 
-        var response = await fetch(endpoint);
-        var json = await response.json();
+        // This is a teaser, find the actual id of the article
+        if(json?.["target"]?.["id"]) {
+            var targetid = json?.["target"]?.["id"];
+            json = await fetch(endpointFor(targetid)).then((response) => response.json());
+        }
 
         var longtitle = json["titleAlt"]["lg"];
 
@@ -27,7 +34,8 @@ var cards = document.querySelectorAll(
     "div[data-component=VolumeCard], " +
     "div[data-component=GenericCard], " +
     "div[data-component=ListCard], " +
-    "li[data-component=TopStoriesCard]"
+    "li[data-component=TopStoriesCard], " +
+    "div[data-component=ContentCard]"
     );
 
 cards.forEach(async (card) => {
